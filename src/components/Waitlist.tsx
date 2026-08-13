@@ -2,22 +2,64 @@
 
 import { useState } from "react";
 
+// Backend waitlist endpoint. Override via NEXT_PUBLIC_API_URL in .env.
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000";
+
 export default function Waitlist() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [seg, setSeg] = useState("");
   const [star, setStar] = useState(0);
   const [hoverStar, setHoverStar] = useState(0);
 
   const segOpts = ["Love it", "Curious", "Skeptical"];
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const email = (e.currentTarget.elements.namedItem("email") as HTMLInputElement);
-    if (email && !email.value) {
-      email.focus();
+    const form = e.currentTarget;
+    const email = (form.elements.namedItem("email") as HTMLInputElement).value.trim();
+    const firstTrade = (form.elements.namedItem("firsttrade") as HTMLInputElement)?.value.trim() ?? "";
+    const thoughts = (form.elements.namedItem("thoughts") as HTMLTextAreaElement)?.value.trim() ?? "";
+
+    if (!email) {
+      (form.elements.namedItem("email") as HTMLInputElement)?.focus();
       return;
     }
-    setSubmitted(true);
+
+    setSubmitting(true);
+    setError(null);
+    try {
+      const res = await fetch(`${API_URL}/api/v1/waitlist`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          sentiment: seg || undefined,
+          starRating: star || undefined,
+          firstTrade: firstTrade || undefined,
+          thoughts: thoughts || undefined,
+        }),
+      });
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        const msg =
+          body?.message === "This email is already on the waitlist"
+            ? "You're already on the list!"
+            : "Something went wrong. Please try again.";
+        if (body?.message === "This email is already on the waitlist") {
+          setSubmitted(true);
+        } else {
+          setError(msg);
+        }
+        return;
+      }
+      setSubmitted(true);
+    } catch {
+      setError("Couldn't reach the server. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const inputStyle = {
@@ -328,9 +370,24 @@ export default function Waitlist() {
                   style={{ ...inputStyle, resize: "vertical" }}
                 />
               </div>
+              {error && (
+                <div
+                  style={{
+                    fontFamily: "var(--font-space-grotesk)",
+                    fontSize: 14,
+                    color: "var(--acidText)",
+                    background: "var(--glow)",
+                    borderRadius: 12,
+                    padding: "12px 16px",
+                  }}
+                >
+                  {error}
+                </div>
+              )}
               <button
                 type="submit"
                 data-magnetic
+                disabled={submitting}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.boxShadow = "0 0 0 5px var(--glow)";
                 }}
@@ -346,11 +403,12 @@ export default function Waitlist() {
                   border: "none",
                   padding: "17px 30px",
                   borderRadius: 100,
-                  cursor: "pointer",
+                  cursor: submitting ? "wait" : "pointer",
+                  opacity: submitting ? 0.7 : 1,
                   transition: "transform .2s ease, box-shadow .2s ease",
                 }}
               >
-                Join the waitlist →
+                {submitting ? "Joining…" : "Join the waitlist →"}
               </button>
             </form>
           )}
