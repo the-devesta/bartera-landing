@@ -22,6 +22,7 @@ export default function Hero() {
     >
       <div
         data-hero="tag"
+        className="bt-hero-tag"
         style={{
           display: "inline-flex",
           alignItems: "center",
@@ -235,6 +236,7 @@ export default function Hero() {
           </div>
         </div>
         <div
+          className="bt-swap-icon-col"
           style={{
             display: "flex",
             flexDirection: "column",

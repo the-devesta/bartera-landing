@@ -79,9 +79,16 @@ img{ display:block; max-width:100%; }
   .bt-steps-grid{ grid-template-columns: repeat(2,1fr) !important; }
   .bt-trust-counters{ grid-template-columns: repeat(2,1fr) !important; gap: 28px !important; }
   .bt-trust-cards{ grid-template-columns: 1fr !important; }
-  .bt-hero-swap{ flex-wrap: wrap !important; }
-  .bt-swapcard{ max-width: 100% !important; min-width: 260px !important; }
   .bt-hero{ padding: 130px 20px 60px !important; }
+
+  /* Hero tag — scale type to fit small screens */
+  .bt-hero-tag{ font-size: 11px !important; letter-spacing: 0.05em !important; padding: 7px 13px !important; gap: 7px !important; }
+
+  /* Swap cards — diagonal arrangement (card ↑, swap icon middle, card ↓) */
+  .bt-hero-swap{ flex-direction: column !important; flex-wrap: nowrap !important; gap: 14px !important; }
+  .bt-hero-swap > .bt-swapcard:first-of-type{ align-self: flex-start; max-width: 78% !important; }
+  .bt-hero-swap > .bt-swapcard:last-of-type{ align-self: flex-end; max-width: 78% !important; }
+  .bt-swap-icon-col{ z-index: 2; }
 }
 
 /* Phone */
@@ -97,6 +104,9 @@ img{ display:block; max-width:100%; }
   .bt-hero-swap{ gap: 16px !important; }
   .bt-swapcard{ min-width: 0 !important; }
   .bt-swap-meta{ flex-wrap: wrap !important; }
+  .bt-hero-tag{ font-size: 10px !important; letter-spacing: 0.03em !important; padding: 6px 11px !important; }
+  .bt-hero-swap > .bt-swapcard:first-of-type{ max-width: 100% !important; margin-right: 14% !important; }
+  .bt-hero-swap > .bt-swapcard:last-of-type{ max-width: 100% !important; margin-left: 14% !important; }
 }
 
 /* Very small phone */
