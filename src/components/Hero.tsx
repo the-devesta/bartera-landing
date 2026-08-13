@@ -177,23 +177,41 @@ export default function Hero() {
             style={{
               aspectRatio: "4/3",
               borderRadius: 14,
-              background:
-                "repeating-linear-gradient(135deg,var(--surface),var(--surface) 11px,var(--surface2) 11px,var(--surface2) 22px)",
               border: "1px solid var(--border)",
+              overflow: "hidden",
+              position: "relative",
               display: "flex",
               alignItems: "flex-end",
-              padding: 14,
+              background: "#FFFFFF",
               marginBottom: 16,
             }}
           >
+            <img
+              src="https://rukminim2.flixcart.com/image/1708/1708/xif0q/computer/v/c/a/-original-imagfdfpnjjpdhq2.jpeg?q=90"
+              alt="MacBook Air M2"
+              style={{
+                position: "absolute",
+                inset: "6%",
+                width: "88%",
+                height: "88%",
+                objectFit: "contain",
+              }}
+            />
             <span
               style={{
+                position: "relative",
+                zIndex: 1,
                 fontFamily: "var(--font-space-grotesk)",
                 fontSize: 12,
                 fontWeight: 600,
                 letterSpacing: "0.06em",
                 textTransform: "uppercase",
-                color: "var(--faint)",
+                color: "var(--text)",
+                background: "var(--surface2)",
+                border: "1px solid var(--border)",
+                borderRadius: 8,
+                padding: "5px 10px",
+                margin: 14,
               }}
             >
               Their listing
@@ -295,23 +313,41 @@ export default function Hero() {
             style={{
               aspectRatio: "4/3",
               borderRadius: 14,
-              background:
-                "repeating-linear-gradient(135deg,var(--surface),var(--surface) 11px,var(--surface2) 11px,var(--surface2) 22px)",
               border: "1px solid var(--border)",
+              overflow: "hidden",
+              position: "relative",
               display: "flex",
               alignItems: "flex-end",
-              padding: 14,
+              background: "#FFFFFF",
               marginBottom: 16,
             }}
           >
+            <img
+              src="https://rukmini1.flixcart.com/image/1500/1500/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg?q=70"
+              alt="iPhone 15"
+              style={{
+                position: "absolute",
+                inset: "7%",
+                width: "86%",
+                height: "86%",
+                objectFit: "contain",
+              }}
+            />
             <span
               style={{
+                position: "relative",
+                zIndex: 1,
                 fontFamily: "var(--font-space-grotesk)",
                 fontSize: 12,
                 fontWeight: 600,
                 letterSpacing: "0.06em",
                 textTransform: "uppercase",
-                color: "var(--faint)",
+                color: "var(--text)",
+                background: "var(--surface2)",
+                border: "1px solid var(--border)",
+                borderRadius: 8,
+                padding: "5px 10px",
+                margin: 14,
               }}
             >
               Your offer
