@@ -9,6 +9,7 @@ export default function Footer() {
       }}
     >
       <div
+        className="bt-footer-inner"
         style={{
           maxWidth: 1240,
           margin: "0 auto",

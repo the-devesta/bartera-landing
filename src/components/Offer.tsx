@@ -17,6 +17,7 @@ export default function Offer() {
       }}
     >
       <div
+        className="bt-offer-grid"
         style={{
           maxWidth: 1240,
           margin: "0 auto",

@@ -28,6 +28,7 @@ export default function Ticker() {
 
   return (
     <div
+      className="bt-ticker"
       style={{
         position: "relative",
         zIndex: 1,
@@ -39,14 +40,15 @@ export default function Ticker() {
       }}
     >
       <div
+        className="bt-ticker-track"
         style={{
           display: "flex",
           width: "max-content",
           animation: "bartera-marquee 32s linear infinite",
         }}
       >
-        <div style={halfStyle}>{items}</div>
-        <div style={halfStyle}>{items}</div>
+        <div className="bt-ticker-half" style={halfStyle}>{items}</div>
+        <div className="bt-ticker-half" style={halfStyle}>{items}</div>
       </div>
     </div>
   );

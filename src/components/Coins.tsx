@@ -10,6 +10,7 @@ export default function Coins() {
       }}
     >
       <div
+        className="bt-coins-grid"
         style={{
           maxWidth: 1240,
           margin: "0 auto",

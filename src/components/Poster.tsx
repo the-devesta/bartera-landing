@@ -1,6 +1,6 @@
 export default function Poster() {
   return (
-    <section style={{ position: "relative", zIndex: 1, padding: "40px 28px" }}>
+    <section className="bt-section" style={{ position: "relative", zIndex: 1, padding: "40px 28px" }}>
       <div
         style={{
           maxWidth: 1240,

@@ -2,6 +2,7 @@ export default function Trust() {
   return (
     <section
       id="trust"
+      className="bt-section"
       style={{
         position: "relative",
         zIndex: 1,
@@ -52,6 +53,7 @@ export default function Trust() {
         Trust signals stay visible while you decide.
       </p>
       <div
+        className="bt-trust-counters"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(4,1fr)",
@@ -96,6 +98,7 @@ export default function Trust() {
         ))}
       </div>
       <div
+        className="bt-trust-cards"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(3,1fr)",

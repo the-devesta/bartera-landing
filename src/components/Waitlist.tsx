@@ -59,6 +59,7 @@ export default function Waitlist() {
       }}
     >
       <div
+        className="bt-waitlist-grid"
         style={{
           maxWidth: 1240,
           margin: "0 auto",

@@ -10,6 +10,7 @@ export default function Hero() {
   return (
     <section
       id="top"
+      className="bt-hero"
       style={{
         position: "relative",
         zIndex: 1,
@@ -147,6 +148,7 @@ export default function Hero() {
 
       <div
         data-hero="swap"
+        className="bt-hero-swap"
         style={{
           marginTop: 78,
           display: "flex",
@@ -158,6 +160,7 @@ export default function Hero() {
       >
         <div
           data-swapcard
+          className="bt-swapcard"
           style={{
             flex: 1,
             maxWidth: 340,
@@ -206,6 +209,7 @@ export default function Hero() {
             MacBook Air M2
           </div>
           <div
+            className="bt-swap-meta"
             style={{
               display: "flex",
               alignItems: "center",
@@ -273,6 +277,7 @@ export default function Hero() {
         </div>
         <div
           data-swapcard
+          className="bt-swapcard"
           style={{
             flex: 1,
             maxWidth: 340,
@@ -322,6 +327,7 @@ export default function Hero() {
             <span style={{ color: "var(--acidText)" }}>+ ₹20,000</span>
           </div>
           <div
+            className="bt-swap-meta"
             style={{
               display: "flex",
               alignItems: "center",

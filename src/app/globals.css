@@ -48,3 +48,59 @@ img{ display:block; max-width:100%; }
 }
 @keyframes bartera-marquee{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
 ::-webkit-scrollbar{ width:0; height:0; }
+
+/* ============ RESPONSIVE (tablet & mobile only — desktop untouched) ============ */
+
+/* Large tablet — reduce hero type + swap cards */
+@media (max-width: 1024px){
+  .bt-hero{ padding: 150px 24px 70px !important; }
+  .bt-hero-swap{ gap: 18px !important; }
+  .bt-swapcard{ max-width: 300px !important; }
+  .bt-offer-grid{ gap: 48px !important; }
+  .bt-coins-grid{ gap: 48px !important; }
+}
+
+/* Tablet — 5 steps -> 3 col, 2-col sections -> stack */
+@media (max-width: 900px){
+  .bt-nav-links{ display:none !important; }
+  .bt-steps-grid{ grid-template-columns: repeat(3,1fr) !important; }
+  .bt-trust-cards{ grid-template-columns: repeat(3,1fr) !important; gap: 18px !important; }
+  .bt-section{ padding-left: 24px !important; padding-right: 24px !important; }
+  .bt-offer-grid, .bt-coins-grid, .bt-waitlist-grid, .bt-problem-grid{ grid-template-columns: 1fr !important; }
+  .bt-problem-grid{ gap: 18px !important; }
+  .bt-offer-grid{ gap: 40px !important; }
+  .bt-coins-grid{ gap: 40px !important; }
+  .bt-waitlist-grid{ gap: 44px !important; }
+}
+
+/* Small tablet / large phone */
+@media (max-width: 768px){
+  .bt-nav{ padding: 14px 20px !important; }
+  .bt-steps-grid{ grid-template-columns: repeat(2,1fr) !important; }
+  .bt-trust-counters{ grid-template-columns: repeat(2,1fr) !important; gap: 28px !important; }
+  .bt-trust-cards{ grid-template-columns: 1fr !important; }
+  .bt-hero-swap{ flex-wrap: wrap !important; }
+  .bt-swapcard{ max-width: 100% !important; min-width: 260px !important; }
+  .bt-hero{ padding: 130px 20px 60px !important; }
+}
+
+/* Phone */
+@media (max-width: 520px){
+  .bt-steps-grid{ grid-template-columns: 1fr !important; }
+  .bt-trust-counters{ grid-template-columns: repeat(2,1fr) !important; gap: 22px !important; }
+  .bt-ticker-half{ font-size: 20px !important; gap: 28px !important; padding-right: 28px !important; }
+  .bt-ticker{ padding: 18px 0 !important; }
+  .bt-footer-inner{ justify-content: center !important; text-align: center !important; }
+  .bt-footer-inner > div:last-child{ width: 100% !important; }
+  .bt-section{ padding-left: 18px !important; padding-right: 18px !important; }
+  .bt-nav-actions .bt-join-cta{ display:none !important; }
+  .bt-hero-swap{ gap: 16px !important; }
+  .bt-swapcard{ min-width: 0 !important; }
+  .bt-swap-meta{ flex-wrap: wrap !important; }
+}
+
+/* Very small phone */
+@media (max-width: 380px){
+  .bt-trust-counters{ grid-template-columns: 1fr 1fr !important; gap: 18px !important; }
+  .bt-nav{ padding: 12px 16px !important; }
+}

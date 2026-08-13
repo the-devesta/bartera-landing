@@ -44,6 +44,7 @@ export default function Navbar() {
 
   return (
     <nav
+      className="bt-nav"
       style={{
         position: "fixed",
         top: 0,
@@ -99,6 +100,7 @@ export default function Navbar() {
           </span>
         </a>
         <div
+          className="bt-nav-links"
           style={{
             display: "flex",
             alignItems: "center",
@@ -121,7 +123,7 @@ export default function Navbar() {
             Coins
           </a>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+        <div className="bt-nav-actions" style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <button
             data-theme-toggle
             aria-label="Toggle theme"
@@ -181,6 +183,7 @@ export default function Navbar() {
             href="#waitlist"
             data-scroll-to="#waitlist"
             data-magnetic
+            className="bt-join-cta"
             ref={magneticRef}
             onMouseEnter={(e) => {
               e.currentTarget.style.boxShadow = "0 0 0 4px var(--glow)";

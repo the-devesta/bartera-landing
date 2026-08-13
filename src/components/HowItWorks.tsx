@@ -20,6 +20,7 @@ export default function HowItWorks() {
   return (
     <section
       id="how"
+      className="bt-section"
       style={{
         position: "relative",
         zIndex: 1,
@@ -57,6 +58,7 @@ export default function HowItWorks() {
         Discover. Offer. Negotiate. Exchange.
       </h2>
       <div
+        className="bt-steps-grid"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(5,1fr)",

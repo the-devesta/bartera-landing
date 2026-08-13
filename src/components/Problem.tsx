@@ -1,6 +1,7 @@
 export default function Problem() {
   return (
     <section
+      className="bt-section"
       style={{
         position: "relative",
         zIndex: 1,
@@ -38,6 +39,7 @@ export default function Problem() {
         Selling something to buy something else is four steps too many.
       </h2>
       <div
+        className="bt-problem-grid"
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
