@@ -29,6 +29,20 @@ export default function Waitlist() {
       return;
     }
 
+    // Detect the user's UI theme so the confirmation email matches (light/dark).
+    let theme: "light" | "dark" = "dark";
+    try {
+      const stored = localStorage.getItem("bartera-theme");
+      if (stored === "light" || stored === "dark") {
+        theme = stored;
+      } else {
+        theme =
+          window.matchMedia("(prefers-color-scheme: light)").matches
+            ? "light"
+            : "dark";
+      }
+    } catch {}
+
     setSubmitting(true);
     setError(null);
     try {
@@ -37,6 +51,7 @@ export default function Waitlist() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
+          theme,
           sentiment: seg || undefined,
           starRating: star || undefined,
           firstTrade: firstTrade || undefined,
