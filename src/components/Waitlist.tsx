@@ -7,6 +7,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000";
 
 export default function Waitlist() {
   const [submitted, setSubmitted] = useState(false);
+  const [alreadyJoined, setAlreadyJoined] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [seg, setSeg] = useState("");
@@ -43,14 +44,15 @@ export default function Waitlist() {
       });
       if (!res.ok) {
         const body = await res.json().catch(() => null);
-        const msg =
-          body?.message === "This email is already on the waitlist"
-            ? "You're already on the list!"
-            : "Something went wrong. Please try again.";
-        if (body?.message === "This email is already on the waitlist") {
-          setSubmitted(true);
+        const already = body?.message === "This email is already on the waitlist";
+        if (already) {
+          setAlreadyJoined(true);
         } else {
-          setError(msg);
+          setError(
+            body?.message === "This email is already on the waitlist"
+              ? "You're already on the list!"
+              : "Something went wrong. Please try again.",
+          );
         }
         return;
       }
@@ -220,44 +222,98 @@ export default function Waitlist() {
             boxShadow: "var(--cardShadow)",
           }}
         >
-          {submitted ? (
+          {submitted || alreadyJoined ? (
             <div data-wl-thanks style={{ textAlign: "center", padding: "30px 10px" }}>
-              <div
-                style={{
-                  width: 72,
-                  height: 72,
-                  borderRadius: "50%",
-                  background: "var(--acid)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  margin: "0 auto 22px",
-                }}
-              >
-                <img src="/assets/mark-ink.png" style={{ width: 40, height: 40 }} />
-              </div>
-              <h3
-                style={{
-                  fontFamily: "var(--font-unbounded)",
-                  fontWeight: 700,
-                  fontSize: 30,
-                  marginBottom: 12,
-                }}
-              >
-                You&apos;re on the list.
-              </h3>
-              <p
-                style={{
-                  fontSize: 16,
-                  lineHeight: 1.55,
-                  color: "var(--muted)",
-                  maxWidth: 340,
-                  margin: "0 auto",
-                }}
-              >
-                Thanks for shaping Bartera — we&apos;ll email your invite the
-                moment we open the doors.
-              </p>
+              {alreadyJoined ? (
+                <div
+                  style={{
+                    border: "1px dashed var(--border2)",
+                    borderRadius: 18,
+                    padding: "26px 18px",
+                    marginBottom: 22,
+                    background: "var(--glow)",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: 64,
+                      height: 64,
+                      borderRadius: "50%",
+                      background: "var(--surface)",
+                      border: "1px solid var(--border)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      margin: "0 auto 18px",
+                    }}
+                  >
+                    <img src="/assets/mark-acid.png" data-mark="dark" alt="Bartera" style={{ width: 36, height: 36 }} />
+                    <img src="/assets/mark-ink.png" data-mark="light" alt="Bartera" style={{ width: 36, height: 36 }} />
+                  </div>
+                  <h3
+                    style={{
+                      fontFamily: "var(--font-unbounded)",
+                      fontWeight: 700,
+                      fontSize: 24,
+                      marginBottom: 10,
+                    }}
+                  >
+                    You&apos;re already on the list.
+                  </h3>
+                  <p
+                    style={{
+                      fontSize: 15,
+                      lineHeight: 1.55,
+                      color: "var(--muted)",
+                      maxWidth: 300,
+                      margin: "0 auto",
+                    }}
+                  >
+                    No need to sign up again — we&apos;ve saved your spot and
+                    will email your invite the moment we open the doors.
+                  </p>
+                </div>
+              ) : (
+                <>
+                  <div
+                    style={{
+                      width: 72,
+                      height: 72,
+                      borderRadius: "50%",
+                      background: "var(--acid)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      margin: "0 auto 22px",
+                    }}
+                  >
+                    <img src="/assets/mark-acid.png" data-mark="dark" alt="Bartera" style={{ width: 40, height: 40 }} />
+                    <img src="/assets/mark-ink.png" data-mark="light" alt="Bartera" style={{ width: 40, height: 40 }} />
+                  </div>
+                  <h3
+                    style={{
+                      fontFamily: "var(--font-unbounded)",
+                      fontWeight: 700,
+                      fontSize: 30,
+                      marginBottom: 12,
+                    }}
+                  >
+                    You&apos;re on the list.
+                  </h3>
+                  <p
+                    style={{
+                      fontSize: 16,
+                      lineHeight: 1.55,
+                      color: "var(--muted)",
+                      maxWidth: 340,
+                      margin: "0 auto",
+                    }}
+                  >
+                    Thanks for shaping Bartera — we&apos;ll email your invite the
+                    moment we open the doors.
+                  </p>
+                </>
+              )}
             </div>
           ) : (
             <form
