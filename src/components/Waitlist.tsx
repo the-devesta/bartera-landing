@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 
-// Backend waitlist endpoint. Override via NEXT_PUBLIC_API_URL in .env.
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000";
+// Backend waitlist endpoint. Override via NEXT_PUBLIC_API_URL (e.g. local dev).
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL ?? "https://api.bartera.in";
 
 export default function Waitlist() {
   const [submitted, setSubmitted] = useState(false);
