@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { useMagnetic } from "@/hooks/useMagnetic";
+import { trackClick } from "@/lib/analytics";
 
 export default function Hero() {
   const ctaRef = useRef<HTMLAnchorElement>(null);
@@ -99,6 +100,7 @@ export default function Hero() {
           data-scroll-to="#waitlist"
           data-magnetic
           ref={ctaRef}
+          onClick={() => trackClick("hero_cta_start_trading")}
           onMouseEnter={(e) => {
             e.currentTarget.style.boxShadow = "0 0 0 5px var(--glow)";
           }}
@@ -124,6 +126,7 @@ export default function Hero() {
         <a
           href="#how"
           data-scroll-to="#how"
+          onClick={() => trackClick("hero_cta_how_it_works")}
           onMouseEnter={(e) => {
             e.currentTarget.style.borderColor = "var(--acidText)";
             e.currentTarget.style.background = "var(--glow)";

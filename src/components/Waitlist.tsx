@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { track } from "@/lib/analytics";
 
 // Backend waitlist endpoint. Override via NEXT_PUBLIC_API_URL (e.g. local dev).
 const API_URL =
@@ -16,6 +17,27 @@ export default function Waitlist() {
   const [hoverStar, setHoverStar] = useState(0);
 
   const segOpts = ["Love it", "Curious", "Skeptical"];
+
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  // Track when the waitlist section becomes visible (funnel entry point).
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    let fired = false;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting) && !fired) {
+          fired = true;
+          track("waitlist_view");
+          io.disconnect();
+        }
+      },
+      { threshold: 0.4 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,6 +65,8 @@ export default function Waitlist() {
       }
     } catch {}
 
+    track("waitlist_submit_attempt", { theme, sentiment: seg || undefined });
+
     setSubmitting(true);
     setError(null);
     try {
@@ -62,8 +86,10 @@ export default function Waitlist() {
         const body = await res.json().catch(() => null);
         const already = body?.message === "This email is already on the waitlist";
         if (already) {
+          track("waitlist_already_joined", { email });
           setAlreadyJoined(true);
         } else {
+          track("waitlist_error", { email, message: body?.message ?? "unknown" });
           setError(
             body?.message === "This email is already on the waitlist"
               ? "You're already on the list!"
@@ -72,8 +98,14 @@ export default function Waitlist() {
         }
         return;
       }
+      track("waitlist_joined", {
+        theme,
+        sentiment: seg || undefined,
+        starRating: star || undefined,
+      });
       setSubmitted(true);
     } catch {
+      track("waitlist_error", { message: "network" });
       setError("Couldn't reach the server. Please try again.");
     } finally {
       setSubmitting(false);
@@ -107,6 +139,7 @@ export default function Waitlist() {
 
   return (
     <section
+      ref={sectionRef}
       id="waitlist"
       style={{
         position: "relative",
@@ -359,7 +392,10 @@ export default function Waitlist() {
                         key={opt}
                         type="button"
                         data-seg-opt={opt}
-                        onClick={() => setSeg(opt)}
+                        onClick={() => {
+                          setSeg(opt);
+                          track("waitlist_sentiment", { sentiment: opt });
+                        }}
                         style={{
                           fontFamily: "var(--font-space-grotesk)",
                           fontSize: 14,
@@ -406,7 +442,10 @@ export default function Waitlist() {
                         data-star={n}
                         aria-label={`${n} star${n > 1 ? "s" : ""}`}
                         onMouseEnter={() => setHoverStar(n)}
-                        onClick={() => setStar(n)}
+                        onClick={() => {
+                          setStar(n);
+                          track("waitlist_star_rating", { rating: n });
+                        }}
                         style={{
                           background: "transparent",
                           border: "none",

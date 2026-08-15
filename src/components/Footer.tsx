@@ -1,3 +1,7 @@
+"use client";
+
+import { trackClick } from "@/lib/analytics";
+
 export default function Footer() {
   return (
     <footer
@@ -72,12 +76,36 @@ export default function Footer() {
         </div>
         <div
           style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 18,
             fontFamily: "var(--font-space-grotesk)",
             fontSize: 13,
-            color: "var(--faint)",
           }}
         >
-          © 2026 Bartera — exchange, not cash.
+          <a
+            href="https://www.instagram.com/bartera.in"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-navlink
+            onClick={() => trackClick("social_instagram")}
+            style={{ color: "var(--muted)" }}
+          >
+            Instagram
+          </a>
+          <a
+            href="https://www.facebook.com/bartera.in"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-navlink
+            onClick={() => trackClick("social_facebook")}
+            style={{ color: "var(--muted)" }}
+          >
+            Facebook
+          </a>
+          <span style={{ color: "var(--faint)" }}>
+            © 2026 Bartera — exchange, not cash.
+          </span>
         </div>
       </div>
     </footer>

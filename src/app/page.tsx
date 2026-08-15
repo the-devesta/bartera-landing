@@ -12,6 +12,7 @@ import Coins from "@/components/Coins";
 import Poster from "@/components/Poster";
 import Waitlist from "@/components/Waitlist";
 import Footer from "@/components/Footer";
+import FaqJsonLd from "@/components/FaqJsonLd";
 import { useLandingAnimations } from "@/hooks/useLandingAnimations";
 
 export default function LandingPage() {
@@ -31,6 +32,7 @@ export default function LandingPage() {
       <Poster />
       <Waitlist />
       <Footer />
+      <FaqJsonLd />
     </div>
   );
 }

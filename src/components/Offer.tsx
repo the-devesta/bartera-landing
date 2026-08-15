@@ -1,3 +1,5 @@
+import { useSectionView } from "@/hooks/useSectionView";
+
 const timeline = [
   { who: "You", label: "Offer", body: "iPhone 15 + ₹10,000", accent: false },
   { who: "Them", label: "Counter", body: "iPhone 15 + ₹20,000", accent: false },
@@ -6,8 +8,10 @@ const timeline = [
 ];
 
 export default function Offer() {
+  const sectionRef = useSectionView("the_offer");
   return (
     <section
+      ref={sectionRef}
       id="offer"
       style={{
         position: "relative",

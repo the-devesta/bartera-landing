@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { track } from "@/lib/analytics";
 import { useMagnetic } from "@/hooks/useMagnetic";
 
 export default function Navbar() {
@@ -36,6 +37,7 @@ export default function Navbar() {
       localStorage.setItem("bartera-theme", next);
     } catch {}
     setTheme(next);
+    track("theme_toggle", { theme: next });
   };
 
   const navLink = {
@@ -185,6 +187,7 @@ export default function Navbar() {
             data-magnetic
             className="bt-join-cta"
             ref={magneticRef}
+            onClick={() => track("nav_join_waitlist")}
             onMouseEnter={(e) => {
               e.currentTarget.style.boxShadow = "0 0 0 4px var(--glow)";
             }}

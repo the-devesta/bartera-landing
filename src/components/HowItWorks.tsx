@@ -1,5 +1,7 @@
 "use client";
 
+import { useSectionView } from "@/hooks/useSectionView";
+
 const steps = [
   { n: "01", t: "Discover", d: "Browse the feed, categories and search for things worth swapping for." },
   { n: "02", t: "Make an offer", d: "Pick something you own, add coin if needed, and send it over." },
@@ -17,8 +19,10 @@ const accents = [
 ];
 
 export default function HowItWorks() {
+  const sectionRef = useSectionView("how_it_works");
   return (
     <section
+      ref={sectionRef}
       id="how"
       className="bt-section"
       style={{

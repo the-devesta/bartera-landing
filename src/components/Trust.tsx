@@ -1,6 +1,10 @@
+import { useSectionView } from "@/hooks/useSectionView";
+
 export default function Trust() {
+  const sectionRef = useSectionView("trust");
   return (
     <section
+      ref={sectionRef}
       id="trust"
       className="bt-section"
       style={{

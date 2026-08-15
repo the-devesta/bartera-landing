@@ -1,6 +1,10 @@
+import { useSectionView } from "@/hooks/useSectionView";
+
 export default function Coins() {
+  const sectionRef = useSectionView("coins");
   return (
     <section
+      ref={sectionRef}
       id="coins"
       style={{
         position: "relative",
