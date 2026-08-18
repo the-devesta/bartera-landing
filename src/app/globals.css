@@ -48,6 +48,12 @@ img{ display:block; max-width:100%; }
 }
 @keyframes bartera-marquee{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
 @keyframes spin { to { transform: rotate(360deg); } }
+@keyframes bt-pulse { 0%, 100% { opacity: 0.35; } 50% { opacity: 0.75; } }
+.bt-skeleton {
+  animation: bt-pulse 1.6s ease-in-out infinite;
+  background: var(--border2);
+  border-radius: 8px;
+}
 .bt-spinner {
   width: 40px;
   height: 40px;

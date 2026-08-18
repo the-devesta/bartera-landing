@@ -106,12 +106,24 @@ export default function TermsOfServicePage() {
 
   if (loading) {
     return (
-      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg)", color: "var(--text)" }}>
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
-          <div className="bt-spinner" />
-          <p style={{ marginTop: 16, color: "var(--muted)", fontFamily: "var(--font-space-grotesk)", fontSize: 15 }}>Loading terms of service…</p>
+      <main style={{ minHeight: "100vh", padding: "80px 24px 120px", background: "var(--bg)", color: "var(--text)" }}>
+        <div style={{ maxWidth: 800, margin: "0 auto" }}>
+          <div className="bt-skeleton" style={{ width: 140, height: 32, borderRadius: 100, marginBottom: 28 }} />
+          <div className="bt-skeleton" style={{ width: "65%", height: 48, marginBottom: 16 }} />
+          <div className="bt-skeleton" style={{ width: 220, height: 18, marginBottom: 48 }} />
+
+          <div style={{ display: "flex", flexDirection: "column", gap: 36 }}>
+            {[0, 1, 2, 3].map((i) => (
+              <div key={i} style={{ display: "flex", flexDirection: "column", gap: 12, borderTop: i > 0 ? "1px solid var(--border)" : "none", paddingTop: i > 0 ? 32 : 0 }}>
+                <div className="bt-skeleton" style={{ width: i % 2 === 0 ? "35%" : "45%", height: 26, marginBottom: 6 }} />
+                <div className="bt-skeleton" style={{ width: "100%", height: 16 }} />
+                <div className="bt-skeleton" style={{ width: "94%", height: 16 }} />
+                <div className="bt-skeleton" style={{ width: i % 2 === 0 ? "85%" : "70%", height: 16 }} />
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      </main>
     );
   }
 
