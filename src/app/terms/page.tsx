@@ -106,17 +106,17 @@ export default function TermsOfServicePage() {
 
   if (loading) {
     return (
-      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <div style={{ textAlign: "center" }}>
-          <div style={{ width: 40, height: 40, borderRadius: "50%", border: "3px solid var(--border)", borderTopColor: "var(--acid)", animation: "spin 1s linear infinite" }} />
-          <p style={{ marginTop: 16, color: "var(--muted)" }}>Loading terms of service…</p>
+      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg)", color: "var(--text)" }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
+          <div className="bt-spinner" />
+          <p style={{ marginTop: 16, color: "var(--muted)", fontFamily: "var(--font-space-grotesk)", fontSize: 15 }}>Loading terms of service…</p>
         </div>
       </div>
     );
   }
 
   return (
-    <main style={{ minHeight: "100vh", padding: "80px 24px 120px" }}>
+    <main style={{ minHeight: "100vh", padding: "80px 24px 120px", background: "var(--bg)", color: "var(--text)" }}>
       <div style={{ maxWidth: 800, margin: "0 auto" }}>
         <header style={{ marginBottom: 48 }}>
           <Link href="/" style={{ display: "inline-flex", alignItems: "center", gap: 8, marginBottom: 24, color: "var(--muted)", textDecoration: "none" }}>
@@ -160,13 +160,6 @@ export default function TermsOfServicePage() {
           </p>
         </footer>
       </div>
-
-      <style jsx>{`
-        @keyframes spin {
-          to { transform: rotate(360deg); }
-        }
-        main { background: var(--bg); color: var(--text); }
-      `}</style>
     </main>
   );
 }

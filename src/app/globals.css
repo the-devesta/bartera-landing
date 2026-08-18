@@ -47,6 +47,15 @@ img{ display:block; max-width:100%; }
   :root:not([data-theme]) [data-mark="light"]{ display:block; }
 }
 @keyframes bartera-marquee{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+@keyframes spin { to { transform: rotate(360deg); } }
+.bt-spinner {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 3px solid var(--border);
+  border-top-color: var(--acid);
+  animation: spin 1s linear infinite;
+}
 ::-webkit-scrollbar{ width:0; height:0; }
 
 /* ============ RESPONSIVE (tablet & mobile only — desktop untouched) ============ */
