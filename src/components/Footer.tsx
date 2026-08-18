@@ -73,6 +73,12 @@ export default function Footer() {
           <a href="#waitlist" data-scroll-to="#waitlist" data-navlink>
             Waitlist
           </a>
+          <a href="/privacy" data-navlink>
+            Privacy
+          </a>
+          <a href="/terms" data-navlink>
+            Terms
+          </a>
         </div>
         <div
           style={{
