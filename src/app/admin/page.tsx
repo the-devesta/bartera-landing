@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import "./admin.css";
 
 interface AdminKPIs {
   totalUsers: number;
@@ -246,48 +247,39 @@ export default function AdminDashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0E110C] text-[#FAF8F5] font-sans antialiased selection:bg-[#C6FF3D] selection:text-[#0E110C]">
+    <div className="admin-root">
       {/* Toast Notification */}
       {notification && (
-        <div className="fixed top-6 right-6 z-50 bg-[#C6FF3D] text-[#0E110C] px-5 py-3 rounded-2xl font-bold shadow-2xl flex items-center gap-2 border border-[#0E110C]/20 animate-bounce">
+        <div className="toast-alert">
           <span>✓</span> {notification}
         </div>
       )}
 
       {/* Header Bar */}
-      <header className="border-b border-[#242A1D] bg-[#12160E]/80 backdrop-blur-xl sticky top-0 z-40 px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-[#C6FF3D] flex items-center justify-center font-black text-[#0E110C] text-lg shadow-lg shadow-[#C6FF3D]/20">
-            B
-          </div>
+      <header className="admin-header">
+        <div className="admin-brand">
+          <div className="admin-logo">B</div>
           <div>
-            <div className="flex items-center gap-2">
-              <h1 className="font-extrabold text-lg tracking-tight text-white font-['Space_Grotesk']">
-                Bartera Admin
-              </h1>
-              <span className="text-[11px] font-semibold tracking-wider px-2 py-0.5 rounded-full bg-[#242A1D] text-[#C6FF3D] border border-[#C6FF3D]/30">
-                PROD OPS
-              </span>
+            <div className="admin-title-wrap">
+              <h1 className="admin-title">Bartera Admin</h1>
+              <span className="admin-badge">PROD OPS</span>
             </div>
-            <p className="text-xs text-[#8A9580]">Marketplace Moderation & Settlement Console</p>
+            <p className="admin-subtitle">Marketplace Moderation & Settlement Console</p>
           </div>
         </div>
 
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#181E13] border border-[#242A1D] text-xs">
-            <span className={`w-2 h-2 rounded-full ${apiConnected ? "bg-[#C6FF3D] animate-pulse" : "bg-[#FFA500]"}`} />
-            <span className="text-[#B5C2AA] font-mono">{apiConnected ? "API Live (Port 4000)" : "Local Simulation"}</span>
-          </div>
-          <div className="w-8 h-8 rounded-full bg-[#C6FF3D]/10 border border-[#C6FF3D]/30 flex items-center justify-center text-xs font-bold text-[#C6FF3D]">
-            OP
+        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <div className="admin-status-pill">
+            <span className={`status-dot ${apiConnected ? "active" : "local"}`} />
+            <span style={{ fontFamily: "monospace" }}>{apiConnected ? "API Live (Port 4000)" : "Local Console Ready"}</span>
           </div>
         </div>
       </header>
 
-      {/* Main Layout */}
-      <div className="max-w-7xl mx-auto px-6 py-8">
+      {/* Main Container */}
+      <div className="admin-container">
         {/* Navigation Tabs */}
-        <div className="flex items-center gap-2 border-b border-[#242A1D] pb-4 mb-8 overflow-x-auto">
+        <div className="admin-tabs">
           {[
             { id: "overview", label: "📊 Overview & KPIs" },
             { id: "listings", label: `📦 Listings (${listings.length})` },
@@ -299,11 +291,7 @@ export default function AdminDashboardPage() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap ${
-                activeTab === tab.id
-                  ? "bg-[#C6FF3D] text-[#0E110C] shadow-lg shadow-[#C6FF3D]/15 font-bold"
-                  : "bg-[#181E13] text-[#8A9580] hover:text-white border border-[#242A1D]"
-              }`}
+              className={`admin-tab-btn ${activeTab === tab.id ? "active" : ""}`}
             >
               {tab.label}
             </button>
@@ -312,37 +300,39 @@ export default function AdminDashboardPage() {
 
         {/* Tab 1: Overview */}
         {activeTab === "overview" && (
-          <div className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div>
+            <div className="kpi-grid">
               {[
-                { label: "Active Listings", val: kpis.activeListings, delta: "+12% this week", color: "text-[#C6FF3D]" },
-                { label: "Active Negotiations", val: kpis.activeNegotiations, delta: "Live on WebSockets", color: "text-[#C6FF3D]" },
-                { label: "Completed Swaps", val: kpis.completedSwaps, delta: "₹42.8L Volume", color: "text-[#C6FF3D]" },
-                { label: "Escrow Coins Circulating", val: `${(kpis.escrowCoinsCirculating / 1000).toFixed(0)}k`, delta: "100% Backed", color: "text-[#C6FF3D]" },
-                { label: "Registered Users", val: kpis.totalUsers, delta: "Bengaluru Beta", color: "text-white" },
-                { label: "Open Safety Reports", val: kpis.openReports, delta: "Requires Action", color: "text-[#FF6B6B]" },
-                { label: "Pending KYC Reviews", val: kpis.pendingVerifications, delta: "Aadhaar / DigiLocker", color: "text-[#FFA500]" },
-                { label: "Avg Platform Trust Score", val: `${kpis.averageTrustScore}%`, delta: "AI Vision Checked", color: "text-[#C6FF3D]" },
+                { label: "Active Listings", val: kpis.activeListings, delta: "+12% this week", color: "acid" },
+                { label: "Active Negotiations", val: kpis.activeNegotiations, delta: "Live on WebSockets", color: "acid" },
+                { label: "Completed Swaps", val: kpis.completedSwaps, delta: "₹42.8L Volume", color: "acid" },
+                { label: "Escrow Coins Circulating", val: `${(kpis.escrowCoinsCirculating / 1000).toFixed(0)}k`, delta: "100% Backed", color: "acid" },
+                { label: "Registered Users", val: kpis.totalUsers, delta: "Bengaluru Beta", color: "white" },
+                { label: "Open Safety Reports", val: kpis.openReports, delta: "Requires Action", color: "red" },
+                { label: "Pending KYC Reviews", val: kpis.pendingVerifications, delta: "Aadhaar / DigiLocker", color: "amber" },
+                { label: "Avg Platform Trust Score", val: `${kpis.averageTrustScore}%`, delta: "AI Vision Checked", color: "acid" },
               ].map((card, i) => (
-                <div key={i} className="p-5 rounded-2xl bg-[#141A10] border border-[#242A1D] shadow-sm">
-                  <p className="text-xs text-[#8A9580] font-medium">{card.label}</p>
-                  <h3 className={`text-2xl font-black mt-2 font-['Space_Grotesk'] ${card.color}`}>{card.val}</h3>
-                  <p className="text-[11px] text-[#55634B] mt-1 font-mono">{card.delta}</p>
+                <div key={i} className="kpi-card">
+                  <div className="kpi-label">{card.label}</div>
+                  <div className={`kpi-value ${card.color}`}>{card.val}</div>
+                  <div className="kpi-delta">{card.delta}</div>
                 </div>
               ))}
             </div>
 
             {/* Quick Summary Card */}
-            <div className="p-6 rounded-2xl bg-gradient-to-r from-[#181E13] to-[#12160E] border border-[#242A1D] flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="banner-card">
               <div>
-                <h2 className="text-lg font-bold text-white font-['Space_Grotesk']">System Operational Status: All Systems Optimal</h2>
-                <p className="text-sm text-[#8A9580] mt-1">NestJS WebSockets, AI Vision Validator, and PostgreSQL Database are running with sub-20ms latency.</p>
+                <div className="banner-title">System Operational Status: All Systems Optimal</div>
+                <div className="banner-sub">
+                  NestJS WebSockets, AI Vision Validator, and PostgreSQL Database are running with sub-20ms latency.
+                </div>
               </div>
-              <div className="flex gap-3">
-                <button onClick={() => setActiveTab("listings")} className="px-4 py-2 rounded-xl bg-[#C6FF3D] text-[#0E110C] text-xs font-bold hover:opacity-90">
+              <div className="banner-actions">
+                <button onClick={() => setActiveTab("listings")} className="btn-primary">
                   Review Queue
                 </button>
-                <button onClick={() => setActiveTab("reports")} className="px-4 py-2 rounded-xl bg-[#242A1D] text-white text-xs font-semibold hover:bg-[#2F3726]">
+                <button onClick={() => setActiveTab("reports")} className="btn-secondary">
                   View Open Reports
                 </button>
               </div>
@@ -352,190 +342,192 @@ export default function AdminDashboardPage() {
 
         {/* Tab 2: Listings Moderation */}
         {activeTab === "listings" && (
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-bold text-white font-['Space_Grotesk']">Platform Listings & AI Moderation Queue</h2>
-              <span className="text-xs text-[#8A9580]">{listings.length} total listings</span>
+          <div className="table-card">
+            <div className="table-header-bar">
+              <div className="table-title">Platform Listings & AI Moderation Queue</div>
+              <div style={{ fontSize: 12, color: "#8A9580" }}>{listings.length} total listings</div>
             </div>
 
-            <div className="rounded-2xl border border-[#242A1D] bg-[#141A10] overflow-hidden">
-              <table className="w-full text-left text-sm">
-                <thead className="bg-[#181E13] text-[#8A9580] text-xs font-semibold border-b border-[#242A1D]">
-                  <tr>
-                    <th className="py-3 px-4">Item & Photos</th>
-                    <th className="py-3 px-4">Category</th>
-                    <th className="py-3 px-4">Est. Value</th>
-                    <th className="py-3 px-4">AI Score</th>
-                    <th className="py-3 px-4">Owner</th>
-                    <th className="py-3 px-4">Status</th>
-                    <th className="py-3 px-4 text-right">Moderation Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#242A1D]">
-                  {listings.map((l) => (
-                    <tr key={l.id} className="hover:bg-[#181E13]/50 transition-colors">
-                      <td className="py-3 px-4 flex items-center gap-3">
-                        <img src={l.image} alt={l.title} className="w-12 h-12 rounded-xl object-cover border border-[#242A1D]" />
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th>Item & Photos</th>
+                  <th>Category</th>
+                  <th>Est. Value</th>
+                  <th>AI Score</th>
+                  <th>Owner</th>
+                  <th>Status</th>
+                  <th style={{ textAlign: "right" }}>Moderation Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {listings.map((l) => (
+                  <tr key={l.id}>
+                    <td>
+                      <div className="item-cell">
+                        <img src={l.image} alt={l.title} className="item-thumb" />
                         <div>
-                          <div className="font-bold text-white text-sm">{l.title}</div>
-                          <div className="text-xs text-[#8A9580]">{l.condition} · {l.views} views</div>
+                          <div className="item-title">{l.title}</div>
+                          <div className="item-meta">{l.condition} · {l.views} views</div>
                         </div>
-                      </td>
-                      <td className="py-3 px-4 text-[#B5C2AA] text-xs">{l.category}</td>
-                      <td className="py-3 px-4 font-mono font-bold text-[#C6FF3D]">₹{l.priceHint?.toLocaleString("en-IN")}</td>
-                      <td className="py-3 px-4">
-                        <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-[#C6FF3D]/10 text-[#C6FF3D] border border-[#C6FF3D]/20">
-                          🛡️ {l.aiScore}
-                        </span>
-                      </td>
-                      <td className="py-3 px-4 text-xs">
-                        <div className="text-white font-medium">{l.ownerName}</div>
-                        <div className="text-[#8A9580]">@{l.ownerHandle}</div>
-                      </td>
-                      <td className="py-3 px-4">
-                        <span className={`px-2 py-0.5 rounded-full text-[11px] font-bold ${
-                          l.status === "ACTIVE"
-                            ? "bg-[#C6FF3D]/15 text-[#C6FF3D]"
-                            : l.status === "FLAGGED"
-                            ? "bg-[#FF6B6B]/15 text-[#FF6B6B]"
-                            : "bg-[#FFA500]/15 text-[#FFA500]"
-                        }`}>
-                          {l.status}
-                        </span>
-                      </td>
-                      <td className="py-3 px-4 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <button
-                            onClick={() => handleModerateListing(l.id, "APPROVE")}
-                            className="px-2.5 py-1 rounded-lg bg-[#C6FF3D]/15 text-[#C6FF3D] hover:bg-[#C6FF3D] hover:text-[#0E110C] text-xs font-bold transition-all"
-                          >
-                            Approve
-                          </button>
-                          <button
-                            onClick={() => handleModerateListing(l.id, "FLAG")}
-                            className="px-2.5 py-1 rounded-lg bg-[#FF6B6B]/15 text-[#FF6B6B] hover:bg-[#FF6B6B] hover:text-white text-xs font-bold transition-all"
-                          >
-                            Flag
-                          </button>
-                          <button
-                            onClick={() => handleModerateListing(l.id, "DELIST")}
-                            className="px-2.5 py-1 rounded-lg bg-[#242A1D] text-[#8A9580] hover:text-white text-xs font-bold transition-all"
-                          >
-                            Delist
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                      </div>
+                    </td>
+                    <td style={{ color: "#B5C2AA" }}>{l.category}</td>
+                    <td><span className="price-text">₹{l.priceHint?.toLocaleString("en-IN")}</span></td>
+                    <td>
+                      <span className="badge-pill green">
+                        🛡️ {l.aiScore}
+                      </span>
+                    </td>
+                    <td>
+                      <div style={{ color: "#ffffff", fontWeight: 600 }}>{l.ownerName}</div>
+                      <div style={{ color: "#8A9580", fontSize: 11 }}>@{l.ownerHandle}</div>
+                    </td>
+                    <td>
+                      <span className={`badge-pill ${
+                        l.status === "ACTIVE"
+                          ? "green"
+                          : l.status === "FLAGGED"
+                          ? "red"
+                          : "amber"
+                      }`}>
+                        {l.status}
+                      </span>
+                    </td>
+                    <td>
+                      <div className="action-group">
+                        <button
+                          onClick={() => handleModerateListing(l.id, "APPROVE")}
+                          className="btn-act approve"
+                        >
+                          Approve
+                        </button>
+                        <button
+                          onClick={() => handleModerateListing(l.id, "FLAG")}
+                          className="btn-act flag"
+                        >
+                          Flag
+                        </button>
+                        <button
+                          onClick={() => handleModerateListing(l.id, "DELIST")}
+                          className="btn-act delist"
+                        >
+                          Delist
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         )}
 
         {/* Tab 3: Users & KYC */}
         {activeTab === "users" && (
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-bold text-white font-['Space_Grotesk']">Trader Accounts & KYC Identity Reviews</h2>
-              <span className="text-xs text-[#8A9580]">{users.length} total users</span>
+          <div className="table-card">
+            <div className="table-header-bar">
+              <div className="table-title">Trader Accounts & KYC Identity Reviews</div>
+              <div style={{ fontSize: 12, color: "#8A9580" }}>{users.length} total users</div>
             </div>
 
-            <div className="rounded-2xl border border-[#242A1D] bg-[#141A10] overflow-hidden">
-              <table className="w-full text-left text-sm">
-                <thead className="bg-[#181E13] text-[#8A9580] text-xs font-semibold border-b border-[#242A1D]">
-                  <tr>
-                    <th className="py-3 px-4">User</th>
-                    <th className="py-3 px-4">Email</th>
-                    <th className="py-3 px-4">Location</th>
-                    <th className="py-3 px-4">KYC Document Status</th>
-                    <th className="py-3 px-4">Trust Badge</th>
-                    <th className="py-3 px-4 text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#242A1D]">
-                  {users.map((u) => (
-                    <tr key={u.id} className="hover:bg-[#181E13]/50 transition-colors">
-                      <td className="py-3 px-4">
-                        <div className="font-bold text-white">{u.fullName}</div>
-                        <div className="text-xs text-[#8A9580]">@{u.handle}</div>
-                      </td>
-                      <td className="py-3 px-4 text-xs font-mono text-[#B5C2AA]">{u.email}</td>
-                      <td className="py-3 px-4 text-xs text-[#8A9580]">{u.location}</td>
-                      <td className="py-3 px-4">
-                        <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${
-                          u.verification === "VERIFIED"
-                            ? "bg-[#C6FF3D]/15 text-[#C6FF3D]"
-                            : u.verification === "PENDING"
-                            ? "bg-[#FFA500]/15 text-[#FFA500]"
-                            : "bg-[#8A9580]/15 text-[#8A9580]"
-                        }`}>
-                          {u.verification}
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Email</th>
+                  <th>Location</th>
+                  <th>KYC Document Status</th>
+                  <th>Trust Badge</th>
+                  <th style={{ textAlign: "right" }}>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((u) => (
+                  <tr key={u.id}>
+                    <td>
+                      <div style={{ fontWeight: 700, color: "#ffffff" }}>{u.fullName}</div>
+                      <div style={{ fontSize: 11, color: "#8A9580" }}>@{u.handle}</div>
+                    </td>
+                    <td style={{ fontFamily: "monospace", color: "#B5C2AA" }}>{u.email}</td>
+                    <td style={{ color: "#8A9580" }}>{u.location}</td>
+                    <td>
+                      <span className={`badge-pill ${
+                        u.verification === "VERIFIED"
+                          ? "green"
+                          : u.verification === "PENDING"
+                          ? "amber"
+                          : "gray"
+                      }`}>
+                        {u.verification}
+                      </span>
+                    </td>
+                    <td>
+                      {u.isVerified ? (
+                        <span style={{ color: "#C6FF3D", fontWeight: 700, fontSize: 12 }}>
+                          ✓ Verified Swapper
                         </span>
-                      </td>
-                      <td className="py-3 px-4">
-                        {u.isVerified ? (
-                          <span className="text-xs font-bold text-[#C6FF3D] flex items-center gap-1">
-                            ✓ Verified Swapper
-                          </span>
-                        ) : (
-                          <span className="text-xs text-[#8A9580]">Standard</span>
-                        )}
-                      </td>
-                      <td className="py-3 px-4 text-right">
+                      ) : (
+                        <span style={{ color: "#8A9580", fontSize: 12 }}>Standard</span>
+                      )}
+                    </td>
+                    <td>
+                      <div className="action-group">
                         <button
                           onClick={() => handleToggleUserVerify(u.id, u.isVerified)}
-                          className="px-3 py-1 rounded-lg bg-[#242A1D] text-[#C6FF3D] hover:bg-[#C6FF3D] hover:text-[#0E110C] text-xs font-bold transition-all"
+                          className="btn-act approve"
                         >
                           {u.isVerified ? "Revoke Badge" : "Approve KYC Badge"}
                         </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         )}
 
         {/* Tab 4: Safety Reports */}
         {activeTab === "reports" && (
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-bold text-white font-['Space_Grotesk']">Safety & Content Moderation Inbox</h2>
-              <span className="text-xs text-[#FF6B6B] font-bold">{reports.filter((r) => r.status === "OPEN").length} open</span>
+          <div>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+              <div className="table-title">Safety & Content Moderation Inbox</div>
+              <span style={{ color: "#FF6B6B", fontWeight: 700, fontSize: 12 }}>
+                {reports.filter((r) => r.status === "OPEN").length} open
+              </span>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="reports-grid">
               {reports.map((r) => (
-                <div key={r.id} className="p-5 rounded-2xl bg-[#141A10] border border-[#242A1D] space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-[#FF6B6B]/15 text-[#FF6B6B]">
-                      {r.type} REPORT
-                    </span>
-                    <span className={`text-xs font-bold ${r.status === "OPEN" ? "text-[#FFA500]" : "text-[#C6FF3D]"}`}>
+                <div key={r.id} className="report-card">
+                  <div className="report-top">
+                    <span className="badge-pill red">{r.type} REPORT</span>
+                    <span style={{ fontSize: 12, fontWeight: 700, color: r.status === "OPEN" ? "#FFA500" : "#C6FF3D" }}>
                       {r.status}
                     </span>
                   </div>
                   <div>
-                    <h4 className="font-bold text-white text-sm">{r.reason}</h4>
-                    <p className="text-xs text-[#8A9580] mt-1">{r.details}</p>
+                    <div className="report-reason">{r.reason}</div>
+                    <div className="report-details">{r.details}</div>
                   </div>
-                  <div className="text-xs text-[#55634B] flex justify-between border-t border-[#242A1D] pt-3 font-mono">
+                  <div className="report-meta">
                     <span>By: {r.authorName}</span>
                     <span>Target: {r.targetName}</span>
                   </div>
                   {r.status === "OPEN" && (
-                    <div className="flex gap-2 pt-2">
+                    <div className="report-actions">
                       <button
                         onClick={() => handleResolveReport(r.id, "RESOLVED")}
-                        className="flex-1 py-1.5 rounded-xl bg-[#C6FF3D] text-[#0E110C] font-bold text-xs hover:opacity-90"
+                        className="btn-primary"
+                        style={{ flex: 1, padding: "8px 12px" }}
                       >
                         Enforce & Resolve
                       </button>
                       <button
                         onClick={() => handleResolveReport(r.id, "DISMISSED")}
-                        className="px-3 py-1.5 rounded-xl bg-[#242A1D] text-[#8A9580] font-semibold text-xs hover:text-white"
+                        className="btn-secondary"
+                        style={{ padding: "8px 14px" }}
                       >
                         Dismiss
                       </button>
@@ -549,23 +541,23 @@ export default function AdminDashboardPage() {
 
         {/* Tab 5: Dispute Arbiter */}
         {activeTab === "disputes" && (
-          <div className="p-8 rounded-2xl bg-[#141A10] border border-[#242A1D] text-center space-y-3">
-            <div className="text-3xl">⚖️</div>
-            <h3 className="font-bold text-white text-base font-['Space_Grotesk']">No Open Barter Disputes</h3>
-            <p className="text-xs text-[#8A9580] max-w-md mx-auto">
+          <div className="empty-box">
+            <div className="empty-icon">⚖️</div>
+            <div className="empty-title">No Open Barter Disputes</div>
+            <div className="empty-sub">
               All meetup handshakes and OTP verifications in the last 24 hours completed with 100% mutual consensus.
-            </p>
+            </div>
           </div>
         )}
 
         {/* Tab 6: Coin Ledger */}
         {activeTab === "coins" && (
-          <div className="p-8 rounded-2xl bg-[#141A10] border border-[#242A1D] text-center space-y-3">
-            <div className="text-3xl">🪙</div>
-            <h3 className="font-bold text-white text-base font-['Space_Grotesk']">158,000 Coins in Escrow Circulation</h3>
-            <p className="text-xs text-[#8A9580] max-w-md mx-auto">
+          <div className="empty-box">
+            <div className="empty-icon">🪙</div>
+            <div className="empty-title">158,000 Coins in Escrow Circulation</div>
+            <div className="empty-sub">
               All coin debit and credit ledger operations are reconciled against the PostgreSQL audit table.
-            </p>
+            </div>
           </div>
         )}
       </div>
