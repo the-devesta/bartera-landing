@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { Onest, Space_Grotesk, Unbounded } from "next/font/google";
 import "./globals.css";
+import AnalyticsConsent from "@/components/AnalyticsConsent";
+import { SITE_URL } from "@/lib/site";
 
 const onest = Onest({
   variable: "--font-onest",
@@ -21,7 +22,7 @@ const unbounded = Unbounded({
   weight: ["400", "500", "600", "700", "800"],
 });
 
-const siteUrl = "https://bartera.in";
+const siteUrl = SITE_URL;
 const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
 const orgJsonLd = {
@@ -45,7 +46,7 @@ export const metadata: Metadata = {
     template: "%s · Bartera",
   },
   description:
-    "List what you have, discover what you want, and negotiate a fair swap — item for item, or with a little coin to balance it out. AI checks give you a confidence read on every listing.",
+    "List what you have, discover what you want, and negotiate a fair swap — item for item, or with a cash top-up to balance it out. AI checks give you a confidence read on every listing.",
   applicationName: "Bartera",
   keywords: [
     "barter",
@@ -69,23 +70,14 @@ export const metadata: Metadata = {
     siteName: "Bartera",
     title: "Bartera — A marketplace for exchange, not cash",
     description:
-      "Swap things you own for things you want. Negotiate item-for-item, or add a little coin to balance it out. Trade with verified people you can trust.",
-    images: [
-      {
-        url: `${siteUrl}/assets/mark-acid.png`,
-        width: 512,
-        height: 512,
-        alt: "Bartera",
-      },
-    ],
+      "Swap things you own for things you want. Negotiate item-for-item, or add a cash top-up to balance it out. Trade with verified people you can trust.",
     locale: "en_IN",
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Bartera — A marketplace for exchange, not cash",
     description:
-      "Swap things you own for things you want. Negotiate item-for-item, or add a little coin to balance it out.",
-    images: [`${siteUrl}/assets/mark-acid.png`],
+      "Swap things you own for things you want. Negotiate item-for-item, or add a cash top-up to balance it out.",
   },
   robots: {
     index: true,
@@ -128,26 +120,7 @@ export default function RootLayout({
       <body>
         {children}
 
-        {gaId ? (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-              strategy="afterInteractive"
-            />
-            <Script
-              id="gtag-init"
-              strategy="afterInteractive"
-              dangerouslySetInnerHTML={{
-                __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){ dataLayer.push(arguments); }
-                  gtag('js', new Date());
-                  gtag('config', '${gaId}');
-                `,
-              }}
-            />
-          </>
-        ) : null}
+        {gaId ? <AnalyticsConsent gaId={gaId} /> : null}
       </body>
     </html>
   );

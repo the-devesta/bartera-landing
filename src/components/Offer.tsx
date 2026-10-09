@@ -70,7 +70,7 @@ export default function Offer() {
               maxWidth: 480,
             }}
           >
-            Offer a single item, stack a few together, or add some coin to
+            Offer a single item, stack a few together, or add a cash top-up to
             balance the value. The other side can accept, reject, or counter —
             and every change is easy to read.
           </p>

@@ -1,34 +1,34 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useSyncExternalStore } from "react";
 import { track } from "@/lib/analytics";
 import { useMagnetic } from "@/hooks/useMagnetic";
 
+type Theme = "dark" | "light";
+
+// The inline bootstrap script in layout.tsx sets <html data-theme> before
+// hydration; read it from the DOM and re-render when it changes.
+function subscribeTheme(cb: () => void) {
+  const obs = new MutationObserver(cb);
+  obs.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-theme"],
+  });
+  return () => obs.disconnect();
+}
+function getTheme(): Theme {
+  const t = document.documentElement.getAttribute("data-theme");
+  if (t === "light" || t === "dark") return t;
+  return window.matchMedia("(prefers-color-scheme: light)").matches
+    ? "light"
+    : "dark";
+}
+const getServerTheme = (): Theme => "dark";
+
 export default function Navbar() {
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const theme = useSyncExternalStore(subscribeTheme, getTheme, getServerTheme);
   const magneticRef = useRef<HTMLAnchorElement>(null);
   useMagnetic(magneticRef);
-
-  useEffect(() => {
-    const getSystemTheme = () =>
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-color-scheme: light)").matches
-        ? "light"
-        : "dark";
-
-    let saved: string | null = null;
-    try {
-      saved = localStorage.getItem("bartera-theme");
-    } catch {}
-
-    if (saved === "dark" || saved === "light") {
-      document.documentElement.setAttribute("data-theme", saved);
-      setTheme(saved);
-    } else {
-      const system = getSystemTheme();
-      setTheme(system);
-    }
-  }, []);
 
   const toggleTheme = () => {
     const next = theme === "light" ? "dark" : "light";
@@ -36,7 +36,6 @@ export default function Navbar() {
     try {
       localStorage.setItem("bartera-theme", next);
     } catch {}
-    setTheme(next);
     track("theme_toggle", { theme: next });
   };
 

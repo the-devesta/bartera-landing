@@ -96,9 +96,9 @@ export default function Coins() {
                 }}
               >
                 <span style={{ color: "var(--muted)" }}>
-                  Balanced iPhone ⇄ MacBook
+                  Deal completed · iPhone ⇄ MacBook
                 </span>
-                <span style={{ color: "var(--amberText)" }}>+₹20,000</span>
+                <span>−100</span>
               </div>
               <div
                 style={{
@@ -121,8 +121,8 @@ export default function Coins() {
                   borderTop: "1px solid var(--border)",
                 }}
               >
-                <span style={{ color: "var(--muted)" }}>Top-up</span>
-                <span style={{ color: "var(--amberText)" }}>+500</span>
+                <span style={{ color: "var(--muted)" }}>Coin pack</span>
+                <span style={{ color: "var(--amberText)" }}>+1,000</span>
               </div>
             </div>
           </div>
@@ -153,7 +153,7 @@ export default function Coins() {
               marginBottom: 24,
             }}
           >
-            A little coin to balance the deal.
+            Coins power the extras.
           </h2>
           <p
             data-anim="up"
@@ -164,9 +164,10 @@ export default function Coins() {
               maxWidth: 480,
             }}
           >
-            Not every trade is even. Add coin to close a value gap, boost a
-            listing, or unlock platform perks. It sits quietly inside the
-            marketplace — never in the way of the swap.
+            Your first deal is free. After that, coins cover the deal fee,
+            boost a listing to the top or feature it on the home feed. Earn
+            them as you set up, or buy coin packs in the app. Coins never
+            change hands between traders.
           </p>
         </div>
       </div>

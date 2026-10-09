@@ -4,7 +4,7 @@ import { useSectionView } from "@/hooks/useSectionView";
 
 const steps = [
   { n: "01", t: "Discover", d: "Browse the feed, categories and search for things worth swapping for." },
-  { n: "02", t: "Make an offer", d: "Pick something you own, add coin if needed, and send it over." },
+  { n: "02", t: "Make an offer", d: "Pick something you own, add a cash top-up if needed, and send it over." },
   { n: "03", t: "Negotiate", d: "Counter back and forth in chat until the trade feels fair." },
   { n: "04", t: "Agree", d: "Both tap confirm. The deal is locked and the swap is on." },
   { n: "05", t: "Exchange", d: "Meet or ship, complete the trade, then rate each other." },

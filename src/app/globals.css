@@ -37,7 +37,7 @@ html{ -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
 body{ background:var(--bg); color:var(--text); font-family:var(--font-onest), 'Onest', sans-serif; overflow-x:hidden; transition:background .5s ease, color .5s ease; }
 ::selection{ background:var(--acid); color:var(--acidInk); }
 a{ color:inherit; text-decoration:none; }
-a[data-navlink]:hover{ color:var(--acidText); }
+[data-navlink]:hover{ color:var(--acidText); }
 img{ display:block; max-width:100%; }
 [data-mark="light"]{ display:none; }
 [data-theme="light"] [data-mark="dark"]{ display:none; }
@@ -129,3 +129,28 @@ img{ display:block; max-width:100%; }
   .bt-trust-counters{ grid-template-columns: 1fr 1fr !important; gap: 18px !important; }
   .bt-nav{ padding: 12px 16px !important; }
 }
+
+/* ============ CONTENT PAGES (legal / support / delete-account) ============ */
+.bt-prose p + p, .bt-prose p + ul, .bt-prose ul + p, .bt-prose p + ol, .bt-prose ol + p{ margin-top: 14px; }
+.bt-prose ul, .bt-prose ol{ padding-left: 22px; display:flex; flex-direction:column; gap:8px; }
+.bt-prose a{ color: var(--acidText); text-decoration: underline; text-underline-offset: 3px; }
+.bt-prose strong{ font-weight: 600; }
+.bt-faq{ border:1px solid var(--border); border-radius:16px; background:var(--surface); padding:18px 22px; }
+.bt-faq + .bt-faq{ margin-top: 12px; }
+.bt-faq summary{ cursor:pointer; font-family:var(--font-space-grotesk); font-weight:600; font-size:17px; list-style:none; display:flex; justify-content:space-between; gap:16px; }
+.bt-faq summary::-webkit-details-marker{ display:none; }
+.bt-faq summary::after{ content:"+"; color:var(--acidText); font-size:20px; line-height:1; }
+.bt-faq[open] summary::after{ content:"–"; }
+.bt-faq > div{ margin-top: 12px; color: var(--muted); }
+
+/* Store badges */
+.bt-store-badge{ display:inline-flex; align-items:center; gap:10px; padding:9px 16px; border-radius:12px; border:1px solid var(--border2); background:var(--surface); color:var(--text); font-family:var(--font-space-grotesk); line-height:1.15; transition: border-color .2s ease; }
+.bt-store-badge:hover{ border-color: var(--acidText); }
+
+/* Consent banner */
+.bt-consent{ position:fixed; left:16px; right:16px; bottom:16px; z-index:100; max-width:560px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; gap:14px 18px; padding:16px 18px; border-radius:18px; border:1px solid var(--border2); background:var(--surface); color:var(--text); box-shadow:var(--cardShadow); font-size:14px; line-height:1.5; }
+.bt-consent p{ flex:1 1 260px; color:var(--muted); }
+.bt-consent a{ color:var(--acidText); text-decoration:underline; }
+.bt-consent-actions{ display:flex; gap:10px; }
+.bt-consent button{ font-family:var(--font-space-grotesk); font-weight:600; font-size:14px; padding:10px 18px; border-radius:100px; cursor:pointer; border:1px solid var(--border2); background:transparent; color:var(--text); }
+.bt-consent button[data-primary]{ background:var(--acid); color:var(--acidInk); border-color:var(--acid); }

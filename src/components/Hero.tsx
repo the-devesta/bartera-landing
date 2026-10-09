@@ -81,7 +81,7 @@ export default function Hero() {
         }}
       >
         List what you have, discover what you want, and negotiate a fair swap —
-        item for item, or with a little coin to balance it out. AI checks give
+        item for item, or with a cash top-up to balance it out. AI checks give
         you a confidence read on every listing.
       </p>
       <div

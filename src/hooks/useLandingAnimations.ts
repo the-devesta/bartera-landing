@@ -1,21 +1,25 @@
 "use client";
 
 import { useEffect } from "react";
+import type LenisType from "lenis";
+
+type Gsap = typeof import("gsap").default;
+type ScrollTriggerStatic = typeof import("gsap/ScrollTrigger").ScrollTrigger;
 
 export function useLandingAnimations() {
   useEffect(() => {
     let disposed = false;
-    let lenisInstance: any = null;
+    let lenisInstance: LenisType | null = null;
     let tickerFn: ((t: number) => void) | null = null;
-    let gsapRef: any = null;
-    let stRef: any = null;
+    let gsapRef: Gsap | null = null;
+    let stRef: ScrollTriggerStatic | null = null;
 
     const cleanup = () => {
       disposed = true;
       if (tickerFn && gsapRef) gsapRef.ticker.remove(tickerFn);
       if (lenisInstance && lenisInstance.destroy) lenisInstance.destroy();
       if (gsapRef && stRef) {
-        stRef.getAll().forEach((t: any) => t.kill());
+        stRef.getAll().forEach((t) => t.kill());
         gsapRef.killTweensOf("[data-anim='up'], [data-hero], [data-swapcard], [data-swap-icon], [data-bg-glow], [data-poster-mark]");
       }
       gsapRef = null;

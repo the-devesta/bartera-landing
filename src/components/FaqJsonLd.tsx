@@ -10,17 +10,17 @@ const faqs = [
   {
     question: "How does Bartera work?",
     answer:
-      "Browse the feed for things worth swapping, send an offer with something you own (adding a little coin if needed), negotiate in chat until the trade feels fair, both tap confirm, then exchange and rate each other.",
+      "Browse the feed for things worth swapping, send an offer with something you own (adding a cash top-up if the values differ), negotiate in chat until the trade feels fair, both tap confirm, then exchange and rate each other.",
   },
   {
     question: "Is Bartera really free? Do I need cash?",
     answer:
-      "Bartera is an exchange marketplace — you trade items for items. You can add a small coin component only when it's needed to balance the value of a deal. No purchase is required.",
+      "Bartera is an exchange marketplace — you trade items for items. If values differ, you can add a cash top-up, which the two traders settle directly between themselves. Listing and browsing are free, and your first completed deal is free.",
   },
   {
     question: "How do I make an offer on an item?",
     answer:
-      "Pick something you own, attach it to the offer, add coin if the values are uneven, and send it to the owner. They can accept, reject, or send a counter-offer.",
+      "Pick something you own, attach it to the offer, add a cash top-up if the values are uneven, and send it to the owner. They can accept, reject, or send a counter-offer.",
   },
   {
     question: "How does the negotiation work?",
@@ -35,7 +35,7 @@ const faqs = [
   {
     question: "What are Bartera Coins?",
     answer:
-      "Coins are a small balance used to level out a trade when the items don't match in value — for example, adding 40 coins on top of a vinyl set to match a film camera. They're not a cash purchase; they just balance the swap.",
+      "Coins are an in-app credit for Bartera features: the fee for each completed deal after your first free one, boosting a listing to the top, and featuring it on the home feed. You earn coins while setting up and can buy coin packs in the app through the App Store or Google Play. Coins have no cash value, can't be withdrawn or transferred, and are never paid to the other trader.",
   },
 ];
 

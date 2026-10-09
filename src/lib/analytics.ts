@@ -2,9 +2,9 @@
 
 /**
  * Lightweight GA4 tracking helpers.
- * gtag is initialized in layout.tsx (next/script) when NEXT_PUBLIC_GA_ID is set.
- * All helpers are no-ops when analytics isn't configured, so the site works
- * identically without a tracking ID.
+ * gtag is only loaded (by AnalyticsConsent) when NEXT_PUBLIC_GA_ID is set AND
+ * the visitor has accepted analytics cookies. Every helper is a no-op until
+ * then, so the site works identically without tracking.
  */
 
 declare global {
@@ -14,15 +14,16 @@ declare global {
   }
 }
 
-const enabled =
-  typeof window !== "undefined" && typeof window.gtag === "function";
+function enabled(): boolean {
+  return typeof window !== "undefined" && typeof window.gtag === "function";
+}
 
 /** Fire a GA4 custom event. `track("waitlist_submit", { theme })`. */
 export function track(
   event: string,
   params?: Record<string, string | number | boolean | undefined>,
 ): void {
-  if (!enabled) return;
+  if (!enabled()) return;
   window.gtag?.("event", event, params);
 }
 
