@@ -3,6 +3,7 @@ import { pageMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import PageShell, { Section } from "@/components/PageShell";
 import { SUPPORT_EMAIL } from "@/lib/site";
+import DeleteAccountForm from "./DeleteAccountForm";
 
 const description =
   "How to permanently delete your Bartera account and personal data — in the app or by email — and what information is deleted or retained.";
@@ -32,7 +33,15 @@ export default function DeleteAccountPage() {
       }
     >
       <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
-        <Section heading="Delete in the app" first>
+        <Section heading="Delete on this page" first>
+          <p>
+            Verify it&apos;s you with a one-time code sent to the email or phone
+            number registered to your account, then confirm.
+          </p>
+          <DeleteAccountForm />
+        </Section>
+
+        <Section heading="Delete in the app">
           <ol>
             <li>Open the Bartera app and sign in.</li>
             <li>
@@ -51,7 +60,7 @@ export default function DeleteAccountPage() {
 
         <Section heading="Request deletion without the app">
           <p>
-            If you no longer have the app installed or can&apos;t sign in,{" "}
+            If you can&apos;t receive a code or no longer have access to your email or phone,{" "}
             <a href={mailto}>email {SUPPORT_EMAIL}</a> with the subject
             &ldquo;Account deletion request&rdquo;. Send it from the email
             address registered to your account, or include the phone number
