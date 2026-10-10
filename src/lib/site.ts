@@ -14,5 +14,5 @@ export const APP_STORE_URL = process.env.NEXT_PUBLIC_APP_STORE_URL || "";
 export const PLAY_STORE_URL = process.env.NEXT_PUBLIC_PLAY_STORE_URL || "";
 
 /** Mobile app identifiers (mirrors mobile/app.json). */
-export const IOS_BUNDLE_ID = "com.khaaonow.bartera";
-export const ANDROID_PACKAGE = "com.khaaonow.bartera";
+export const IOS_BUNDLE_ID = "in.bartera.app";
+export const ANDROID_PACKAGE = "in.bartera.app";
